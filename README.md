@@ -18,3 +18,29 @@
         <img src="http://img.shields.io/badge/swift-4.1-brightgreen.svg" alt="Swift 4.1">
     </a>
 </center>
+
+## Gotchas
+
+I had no success using Docker, so I installed a local instance of MySQL with homebrew
+
+`brew tap homebrew/services`
+
+`brew install mysql`
+
+`brew services start mysql`
+
+And then I could log in to MySQL in the terminal with:
+
+`mysql -u root -p`
+
+(hit enter twice)
+
+Once logged in to MySQL I could create a user with:
+
+`GRANT ALL PRIVILEGES ON *.* TO 'til'@'localhost' IDENTIFIED BY 'password';`
+
+And create a DB with:
+
+`CREATE DATABASE vapor;`
+
+And that should be it :smile:
