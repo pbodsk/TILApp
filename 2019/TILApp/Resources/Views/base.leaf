@@ -26,7 +26,6 @@
             <li class="nav-item #if(title == "Create an Acronym") {active}">
               <a href="/acronyms/create" class="nav-link">Create an Acronym</a>
             </li>
-
         </ul>
       </div>
     </nav>
