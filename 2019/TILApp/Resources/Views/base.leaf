@@ -15,14 +15,17 @@
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
          <ul class="navbar-nav mr-auto">
            <li class="nav-item #if(title == "Homepage") {active}">
-            <a href="/" class="nav-link">Home</a>
-          </li>
-          <li class="nav-item #if(title == "All Users") {active}">
-           <a href="/users" class="nav-link">All Users</a>
-         </li>
-         <li class="nav-item #if(title == "All Categories") {active}">
-          <a href="/categories" class="nav-link">All Categories</a>
-        </li>
+             <a href="/" class="nav-link">Home</a>
+            </li>
+            <li class="nav-item #if(title == "All Users") {active}">
+              <a href="/users" class="nav-link">All Users</a>
+            </li>
+            <li class="nav-item #if(title == "All Categories") {active}">
+              <a href="/categories" class="nav-link">All Categories</a>
+            </li>
+            <li class="nav-item #if(title == "Create an Acronym") {active}">
+              <a href="/acronyms/create" class="nav-link">Create an Acronym</a>
+            </li>
 
         </ul>
       </div>

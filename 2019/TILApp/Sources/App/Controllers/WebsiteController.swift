@@ -8,6 +8,8 @@ struct WebsiteController: RouteCollection {
         router.get("users", User.parameter, use: userHandler)
         router.get("categories", use: allCategoriesHandler)
         router.get("categories", Category.parameter, use: categoryHandler)
+        router.get("acronyms", "create", use: createAcronymHandler)
+        router.post(Acronym.self, at: "acronyms", "create", use: createAcronymPostHandler)
     }
     
     func indexHandler(_ req: Request) throws -> Future<View> {
@@ -53,6 +55,20 @@ struct WebsiteController: RouteCollection {
             return try req.view().render("category", categoryContext)
         }
     }
+    
+    func createAcronymHandler(_ req: Request) throws -> Future<View> {
+        let createAcronymContext = CreateAcronymContext(users: User.query(on: req).all())
+        return try req.view().render("createAcronym", createAcronymContext)
+    }
+    
+    func createAcronymPostHandler(_ req: Request, acronym: Acronym) throws -> Future<Response> {
+        return acronym.save(on: req).map(to: Response.self) { acronym in
+            guard let id = acronym.id else {
+                return req.redirect(to: "/")
+            }
+            return req.redirect(to: "/acronyms/\(id)")
+        }
+    }
 }
 
 struct IndexContext: Encodable {
@@ -86,4 +102,9 @@ struct AllCategoriesContext: Encodable {
 struct CategoryContext: Encodable {
     let title: String
     let acronyms: Future<[Acronym]>
+}
+
+struct CreateAcronymContext: Encodable {
+    let title = "Create an Acronym"
+    let users: Future<[User]>
 }
