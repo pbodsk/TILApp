@@ -2,5 +2,13 @@
   <h1>#(acronym.short)</h1>
   <h2>#(acronym.long)</h2>
   <p>Created by: <a href="/users/#(user.id)">#(user.name)</a></p>
+  #if(count(categories) > 0) {
+    <h3>Belongs To These Categories</h3>
+    <ul>
+      #for(category in categories) {
+        <li><a href="/categories/#(category.id)">#(category.name)</a></li>
+      }
+    </ul>
+  }
 }
 #embed("base")
