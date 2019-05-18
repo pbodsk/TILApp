@@ -1,6 +1,7 @@
 import FluentMySQL
 import Vapor
 import Leaf
+import Authentication
 
 /// Called before your application initializes.
 public func configure(_ config: inout Config, _ env: inout Environment, _ services: inout Services) throws {
@@ -14,6 +15,9 @@ public func configure(_ config: inout Config, _ env: inout Environment, _ servic
     
     //Leaf
     try services.register(LeafProvider())
+    
+    //Authentication
+    try services.register(AuthenticationProvider())
 
     // Register middleware
     var middlewares = MiddlewareConfig() // Create _empty_ middleware config
@@ -36,7 +40,9 @@ public func configure(_ config: inout Config, _ env: inout Environment, _ servic
     migrations.add(model: User.self, database: .mysql)
     migrations.add(model: Category.self, database: .mysql)
     migrations.add(model: AcronymCategoryPivot.self, database: .mysql)
+    migrations.add(model: Token.self, database: .mysql)
     services.register(migrations)
     
     config.prefer(LeafRenderer.self, for: ViewRenderer.self)
+    config.prefer(MemoryKeyedCache.self, for: KeyedCache.self)
 }
